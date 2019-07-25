@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="fb17e870-c1f2-48cc-a778-209b275be12f" name="st-gcn" url="http://121.48.165.41">
+        <fileTransfer host="121.48.165.41" port="10060" rootFolder="/mnt/disk2/huangke/action/st-gcn-master/" accessType="SFTP">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+          <option name="port" value="10060" />
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>

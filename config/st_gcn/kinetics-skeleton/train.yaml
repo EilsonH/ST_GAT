@@ -1,0 +1,44 @@
+work_dir: ./work_dir/recognition/kinetics_skeleton/ST_GCN
+
+# feeder
+feeder: feeder.feeder.Feeder
+train_feeder_args:
+  random_choose: True
+  random_move: True
+  window_size: 150 
+  data_path: ./data/Kinetics/kinetics-skeleton/train_data.npy
+  label_path: ./data/Kinetics/kinetics-skeleton/train_label.pkl
+test_feeder_args:
+  data_path: ./data/Kinetics/kinetics-skeleton/val_data.npy
+  label_path: ./data/Kinetics/kinetics-skeleton/val_label.pkl
+
+# model
+#model: net.st_gcn.Model     #单独的邻接矩阵学习
+#model: net_attention.st_gcn.Model   #单独的attention机制,加在某些固定层前面
+#model: net_glearn_3dim.st_gcn.Model #单独的邻接矩阵分散到三个维度学习
+model: net_gat.st_gcn.Model #把所有的层都换成uniform策略的全连接层
+model_args:
+  in_channels: 3
+  num_class: 400
+  edge_importance_weighting: True
+  graph_args:
+    layout: 'openpose'
+    strategy: 'spatial'
+freeze_graph_until: -1    #如果小于0就不会更新邻接矩阵
+
+# training
+#两张卡，只加attention机制，batch_size最大为30，速度为30s迭代100个batch
+#两张卡，只加A学习机制，batch_size最大为64，速度为60s
+#迭代速度和计算能力有关系，因为显卡一直处于接近100%的使用率
+#瓶颈在显卡自身的计算能力上，即便显存只占一半，仍然是100%的使用率
+device: [0,1] #默认是0,1,2,3
+batch_size: 32   #默认是256
+test_batch_size: 32 #默认是256
+
+#optim
+base_lr: 0.1
+step: [ 15, 30, 45, 60]
+num_epoch: 70
+
+
+
