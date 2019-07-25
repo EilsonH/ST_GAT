@@ -19,15 +19,15 @@ class Graph():
             refer to https://github.com/shahroudy/NTURGB-D
 
         max_hop (int): the maximal distance between two connected nodes #最大邻域范围，一般是1
-        dilation (int): controls the spacing between the kernel points #步长，一般都是1
+        dilation (int): controls the spacing between the kernel points #卷积核两个点之间的距离，通常用于空洞卷积
 
     """
 
     def __init__(self,
                  layout='openpose',
-                 strategy='distance', #, spatial, uniform
+                 strategy='spatial', #, spatial, uniform,distance
                  max_hop=1,
-                 dilation=1):
+                 dilation=1): #dilation表示空洞卷积步长，1-dilation和普通卷积相同
         self.max_hop = max_hop
         self.dilation = dilation
 
@@ -84,7 +84,7 @@ class Graph():
         adjacency = np.zeros((self.num_node, self.num_node))
         for hop in valid_hop:
             adjacency[self.hop_dis == hop] = 1 #只要是在hop_dis中值不为inf的，在邻接矩阵中都是1
-        normalize_adjacency = normalize_digraph(adjacency) #对邻接矩阵进行归一化处理，通过度矩阵来实现
+        normalize_adjacency = normalize_digraph(adjacency) #对邻接矩阵进行有向图归一化处理，通过度矩阵来实现
 
         if strategy == 'uniform': #全部共享
             A = np.zeros((1, self.num_node, self.num_node))
@@ -97,7 +97,7 @@ class Graph():
                 A[i][self.hop_dis == hop] = normalize_adjacency[self.hop_dis ==
                                                                 hop] #重新将邻接矩阵拆分为两个矩阵,分别是不同邻域的
             self.A = A
-        elif strategy == 'spatial':
+        elif strategy == 'spatial': #自身享受一个权重，离重心近的享受一个权重，离重心远的享受一个权重
             A = []
             for hop in valid_hop:
                 a_root = np.zeros((self.num_node, self.num_node))
@@ -120,7 +120,7 @@ class Graph():
                 else:
                     A.append(a_root + a_close)
                     A.append(a_further)
-            A = np.stack(A)
+            A = np.stack(A) #堆叠，形成新的多维数组（矩阵）,shape为3*18*18
             self.A = A
         else:
             raise ValueError("Do Not Exist This Strategy")

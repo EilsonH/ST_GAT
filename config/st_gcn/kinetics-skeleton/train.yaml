@@ -1,4 +1,4 @@
-work_dir: ./work_dir/recognition/kinetics_skeleton/ST_GCN
+﻿work_dir: ./work_dir/recognition/kinetics_skeleton/ST_GCN
 
 # feeder
 feeder: feeder.feeder.Feeder
@@ -15,8 +15,8 @@ test_feeder_args:
 # model
 #model: net.st_gcn.Model     #单独的邻接矩阵学习
 #model: net_attention.st_gcn.Model   #单独的attention机制,加在某些固定层前面
-#model: net_glearn_3dim.st_gcn.Model #单独的邻接矩阵分散到三个维度学习
-model: net_gat.st_gcn.Model #把所有的层都换成uniform策略的全连接层
+model: net_glearn_3dim.st_gcn.Model #单独的邻接矩阵分散到三个维度学习
+#model: net_gat.st_gcn.Model #把所有的层都换成uniform策略的全连接层
 model_args:
   in_channels: 3
   num_class: 400
