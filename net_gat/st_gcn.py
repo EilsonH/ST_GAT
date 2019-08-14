@@ -5,7 +5,8 @@ from torch.autograd import Variable
 # import all modules from torch
 
 from net_gat.utils.graph import Graph
-from net_gat.utils.gat import GraphAttentionLayer
+from net_gat.utils.gat import SpatialGAT, TemporalGAT
+from net_gat.utils.tgcn import ConvTemporalGraphical
 
 class Model(nn.Module):
     r"""Spatial temporal graph convolutional networks.
@@ -33,8 +34,8 @@ class Model(nn.Module):
 
         # load graph
         self.graph = Graph(**graph_args)
-        A = torch.tensor(self.graph.A, dtype=torch.float32, requires_grad=False)
-        self.register_buffer('A', A) #将tensor注册为buffer
+        A = torch.nn.Parameter(torch.tensor(self.graph.A, dtype=torch.float32),requires_grad=False)
+        self.register_parameter('A', A)
 
         # build networks
         spatial_kernel_size = A.size(0)
@@ -71,6 +72,11 @@ class Model(nn.Module):
     # def graph_learn(self):
     #self.buffers()是生成器，不能直接索引
 
+    # def print_e(self):
+        # print(torch.mean(torch.stack(self.st_gcn_networks[0].att.es)))
+
+    def graph_learn(self):
+        self._parameters['A'].requires_grad=True
 
     def forward(self, x):
 
@@ -154,28 +160,23 @@ class st_gcn(nn.Module):
                  kernel_size,
                  stride=1,
                  dropout=0,
-                 residual=False):
+                 residual=True):
         super().__init__()
-
 
         assert len(kernel_size) == 2  #检查条件
         assert kernel_size[0] % 2 == 1
-        padding = ((kernel_size[0] - 1) // 2, 0) #整数除法
 
-        self.att = GraphAttentionLayer(in_channels, out_channels, dropout)
+        self.gcn = ConvTemporalGraphical(in_channels, out_channels,
+                                         kernel_size[1])
 
-        self.tcn = nn.Sequential(
+        self.sp_gat = SpatialGAT(in_channels, out_channels, dropout)
+
+        self.temp_gat = nn.Sequential(
             nn.BatchNorm2d(out_channels),
             nn.ReLU(inplace=True),
-            nn.Conv2d(
-                out_channels,
-                out_channels,
-                (kernel_size[0], 1),
-                (stride, 1),
-                padding,
-            ),
+            TemporalGAT(out_channels, kernel_size[0], stride, dropout),
             nn.BatchNorm2d(out_channels),
-            nn.Dropout(dropout, inplace=True),
+            nn.Dropout(dropout, inplace=True)
         )
 
         #残差网络
@@ -200,8 +201,8 @@ class st_gcn(nn.Module):
     def forward(self, x, A):
 
         res = self.residual(x)
-        x = self.att(x, A)
-        x = self.tcn(x) + res
+        x, A = self.gcn(x, A)
+        x = self.temp_gat(x) + res
 
         return self.relu(x), A
 

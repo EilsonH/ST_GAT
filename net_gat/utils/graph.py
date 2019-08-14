@@ -84,8 +84,8 @@ class Graph():
         adjacency = np.zeros((self.num_node, self.num_node))
         for hop in valid_hop:
             adjacency[self.hop_dis == hop] = 1 #只要是在hop_dis中值不为inf的，在邻接矩阵中都是1
-        normalize_adjacency = normalize_digraph(adjacency) #对邻接矩阵进行归一化处理，通过度矩阵来实现
-
+        # normalize_adjacency = normalize_digraph(adjacency) #对邻接矩阵进行归一化处理，通过度矩阵来实现
+        normalize_adjacency = normalize_undigraph(adjacency)  #按照无向图的归一化方式，原始代码中用的是有向图归一化方式
         if strategy == 'uniform': #全部共享
             A = np.zeros((1, self.num_node, self.num_node))
             A[0] = normalize_adjacency #没有变化
