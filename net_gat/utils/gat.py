@@ -36,56 +36,41 @@ class SpatialGAT(nn.Module):
 
 class TemporalGAT(nn.Module):
 
-    def __init__(self, in_channels, kernel, stride, dropout):
+    def __init__(self, in_channels, kernel, stride, dropout = 0.5):
         super(TemporalGAT, self).__init__()
         self.dropout = dropout
-
-        self.alpha = nn.Parameter(torch.zeros(size = (in_channels // 4, in_channels)))
-        self.phi = nn.Parameter(torch.zeros(size=(in_channels // 4, in_channels)))
-        self.W = nn.Parameter(torch.zeros(size = (in_channels, in_channels)))
-        nn.init.xavier_uniform_(self.W.data, gain=1.414)
         self.kernel = kernel
         self.stride = stride
 
+        self.W = nn.Parameter(torch.zeros(size=(in_channels, in_channels)))
+        nn.init.xavier_uniform_(self.W.data, gain=1.414)
+        self.k = torch.tensor([1 / self.kernel for i in range(kernel)], requires_grad = True)
+        self.alpha = nn.Parameter(torch.zeros(size = (in_channels, in_channels // 4)))
+        self.phi = nn.Parameter(torch.zeros(size=(in_channels, in_channels // 4)))
+
     def forward(self, x):
         N, C, T, V = x.size()
-        x = x.permute(0, 3, 2, 1).contiguous().view(N * V, T, -1)
+        x = x.permute(0, 3, 2, 1).contiguous()
         x = torch.matmul(x, self.W)
         W = self.att_W(T)
         I = self.att_I(T)
 
-        x1 = torch.einsum('hc, ntc -> nth', (self.alpha, x))
-        x2 = torch.einsum('hc, ntc -> nth', (self.phi, x)).transpose(1, 2)
+        x1 = torch.matmul(x, self.alpha)
+        x2 = torch.matmul(x, self.phi).permute(0, 1, 3, 2)
 
-        attention = torch.matmul(x1, x2)
-        attention = F.softmax(torch.matmul(W, torch.mul(I, attention)), dim = -1)
+        attention = F.dropout(torch.matmul(x1, x2) / x2.size(-1), self.dropout, training = self.training)
+        attention = F.softmax(torch.matmul(W, attention), dim = -1) + torch.matmul(W, I)
 
         x = torch.matmul(attention, x)
-        return x.view(N, V, -1, C).permute(0, 3, 2, 1)
-
- # def forward(self, x):
- #    N, C, T, V = x.size()
- #    x = x.permute(0, 3, 2, 1).contiguous().view(N * V, T, -1)
- #
- #    conv = self.conv_I(T)
- #    x1 = torch.einsum('hw, bwtc -> bhtc', (conv, x.repeat(1, 1, T).view(N * V, T, T, -1)))
- #    x2 = torch.einsum('hw, bwtc -> bhtc', (conv, x.repeat(1, T, 1).view(N * V, T, T, -1)))
- #    a_input = torch.cat([x1, x2], dim=3)
- #    e = self.leakyrelu(torch.matmul(a_input, self.a).squeeze(3))
- #
- #    attention = F.dropout(e, self.dropout, training=self.training)
- #    attention = F.softmax(attention + torch.matmul(conv, torch.eye(T, T).cuda()), dim = 2)
- #
- #    x = torch.bmm(attention, x)
- #    return x.view(N, V, -1, C).permute(0, 3, 2, 1)
-
+        return x.permute(0, 3, 2, 1)
 
     def att_I(self, t):
         out = torch.zeros(t, t)
         j = 0
 
         for i in range(t):
-            out[i][max(0, j - self.kernel // 2): min(t, j + self.kernel // 2 + 1)] = 1
+            e1, e2 = j - self.kernel // 2, j + self.kernel // 2 + 1
+            out[i][max(0, e1): min(t, e2)] = self.k[max(0, -e1) : min(self.kernel, self.kernel // 2 + t - j)]
             j += 1
 
         return out.cuda()
@@ -99,6 +84,3 @@ class TemporalGAT(nn.Module):
             j += self.stride
 
         return out.cuda()
-
-
-

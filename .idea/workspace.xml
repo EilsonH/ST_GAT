@@ -2,7 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d98505a2-8c1c-4e63-a9a2-0b59045ab301" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/st_gcn/kinetics-skeleton/train.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/st_gcn/kinetics-skeleton/train.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/net_gat/utils/gat.py" beforeDir="false" afterPath="$PROJECT_DIR$/net_gat/utils/gat.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -26,11 +29,55 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="true" current-in-tab="false">
+        <entry file="remoteDeploymentFS://&lt;fb17e870-c1f2-48cc-a778-209b275be12f&gt;/config/st_gcn/kinetics-skeleton/train.yaml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="323">
+              <caret line="35" column="19" selection-start-line="35" selection-start-column="19" selection-end-line="35" selection-end-column="19" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="true" current-in-tab="false">
+        <entry file="remoteDeploymentFS://&lt;fb17e870-c1f2-48cc-a778-209b275be12f&gt;/net_gat/utils/gat.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-515">
+              <caret line="55" column="10" selection-start-line="55" selection-start-column="10" selection-end-line="55" selection-end-column="10" />
+              <folding>
+                <element signature="e#0#11#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="true" current-in-tab="false">
+        <entry file="remoteDeploymentFS://&lt;fb17e870-c1f2-48cc-a778-209b275be12f&gt;/net_lstm/st_gcn.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1081">
+              <caret line="74" column="32" selection-start-line="74" selection-start-column="32" selection-end-line="74" selection-end-column="32" />
+              <folding>
+                <element signature="e#0#12#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="true" current-in-tab="true">
+        <entry file="remoteDeploymentFS://&lt;fb17e870-c1f2-48cc-a778-209b275be12f&gt;/net_lstm/utils/lstm.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-228">
+              <folding>
+                <element signature="e#0#12#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/main.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="474">
-              <caret line="46" column="71" selection-start-line="46" selection-start-column="71" selection-end-line="46" selection-end-column="71" />
+            <state relative-caret-position="342">
+              <caret line="27" column="48" lean-forward="true" selection-start-line="27" selection-start-column="48" selection-end-line="27" selection-end-column="48" />
               <folding>
                 <element signature="e#47#62#0" expanded="true" />
               </folding>
@@ -50,8 +97,13 @@
       <find>cu</find>
       <find>self.gpu</find>
       <find>self.arg.device</find>
-      <find>batch</find>
       <find>epoch</find>
+      <find>import_class</find>
+      <find>load_model</find>
+      <find>self.io</find>
+      <find>nodes</find>
+      <find>batch</find>
+      <find>model</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -76,11 +128,20 @@
         <option value="&lt;fb17e870-c1f2-48cc-a778-209b275be12f&gt;/net_attention/utils/gat.py" />
         <option value="&lt;fb17e870-c1f2-48cc-a778-209b275be12f&gt;/net_attention/st_gcn.py" />
         <option value="&lt;fb17e870-c1f2-48cc-a778-209b275be12f&gt;/net_gat/st_gcn.py" />
+        <option value="&lt;fb17e870-c1f2-48cc-a778-209b275be12f&gt;/processor/recognition.py" />
+        <option value="&lt;fb17e870-c1f2-48cc-a778-209b275be12f&gt;/net_lstm/utils/st_lstm.py" />
+        <option value="&lt;fb17e870-c1f2-48cc-a778-209b275be12f&gt;/log/20190826_tatt.txt" />
+        <option value="$PROJECT_DIR$/net_lstm/st_gcn.py" />
+        <option value="$PROJECT_DIR$/net_lstm/utils/lstm.py" />
+        <option value="&lt;fb17e870-c1f2-48cc-a778-209b275be12f&gt;/net_lstm/utils/lstm.py" />
+        <option value="&lt;fb17e870-c1f2-48cc-a778-209b275be12f&gt;/net_lstm/st_gcn.py" />
+        <option value="&lt;fb17e870-c1f2-48cc-a778-209b275be12f&gt;/log/20190827_attention" />
+        <option value="&lt;fb17e870-c1f2-48cc-a778-209b275be12f&gt;/config/st_gcn/kinetics-skeleton/train.yaml" />
         <option value="&lt;fb17e870-c1f2-48cc-a778-209b275be12f&gt;/net_gat/utils/gat.py" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="7">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="303" />
     <option name="y" value="85" />
     <option name="width" value="1440" />
@@ -98,11 +159,6 @@
             <path>
               <item name="st-gcn" type="b2602c69:ProjectViewProjectNode" />
               <item name="st-gcn" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="st-gcn" type="b2602c69:ProjectViewProjectNode" />
-              <item name="st-gcn" type="462c0819:PsiDirectoryNode" />
-              <item name="net_attention" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -129,7 +185,7 @@
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="restartRequiresConfirmation" value="false" />
-    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
+    <property name="settings.editor.selected.configurable" value="project.propVCSSupport.Mappings" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -144,6 +200,28 @@
     </option>
   </component>
   <component name="RunManager" selected="Python.main">
+    <configuration name="lstm" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="st-gcn" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="/" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="&lt;fb17e870-c1f2-48cc-a778-209b275be12f&gt;/net_lstm/utils/lstm.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="main (1)" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="st-gcn" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -188,7 +266,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="main" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration name="main" type="PythonConfigurationType" factoryName="Python" singleton="false" temporary="true">
       <module name="st-gcn" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -203,28 +281,6 @@
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/main.py" />
       <option name="PARAMETERS" value="recognition -c /mnt/disk2/huangke/action/st-gcn-master/config/st_gcn/kinetics-skeleton/train.yaml" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="st_gcn (2)" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <module name="st-gcn" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="D:/Action_GCN/st-gcn/net" />
-      <option name="IS_MODULE_SDK" value="false" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="D:/Action_GCN/st-gcn/net/st_gcn.py" />
-      <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
@@ -257,17 +313,17 @@
     <list>
       <item itemvalue="Python.main" />
       <item itemvalue="Python.main (1)" />
-      <item itemvalue="Python.st_gcn (2)" />
       <item itemvalue="Python.st_gcn (3)" />
       <item itemvalue="Python.main (2)" />
+      <item itemvalue="Python.lstm" />
     </list>
     <recent_temporary>
       <list>
         <item itemvalue="Python.main" />
+        <item itemvalue="Python.lstm" />
         <item itemvalue="Python.main (1)" />
         <item itemvalue="Python.main (2)" />
         <item itemvalue="Python.st_gcn (3)" />
-        <item itemvalue="Python.st_gcn (2)" />
       </list>
     </recent_temporary>
   </component>
@@ -291,42 +347,53 @@
       <workItem from="1563719535256" duration="2419000" />
       <workItem from="1563775960163" duration="4638000" />
       <workItem from="1564052738279" duration="1938000" />
+      <workItem from="1565750161553" duration="20260000" />
+      <workItem from="1566210643491" duration="21257000" />
+      <workItem from="1566448796492" duration="707000" />
+      <workItem from="1566460207200" duration="3434000" />
+      <workItem from="1566635627532" duration="30531000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="53630000" />
+    <option name="totallyTimeSpent" value="129819000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="7" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" weight="0.20255864" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.32936078" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.3997833" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49946696" visible="true" weight="0.3286334" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.3991323" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="8" />
-      <window_info active="true" anchor="bottom" id="File Transfer" order="9" visible="true" weight="0.26138827" />
+      <window_info anchor="bottom" id="File Transfer" order="9" sideWeight="0.49946696" weight="0.25813448" />
       <window_info anchor="bottom" id="Database Changes" order="10" />
-      <window_info anchor="bottom" id="Terminal" order="11" weight="0.32936078" />
-      <window_info anchor="bottom" id="Event Log" order="12" side_tool="true" />
+      <window_info anchor="bottom" id="Terminal" order="11" weight="0.3286334" />
+      <window_info anchor="bottom" id="Event Log" order="12" sideWeight="0.50053304" side_tool="true" weight="0.25813448" />
       <window_info anchor="bottom" id="Python Console" order="13" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-      <window_info anchor="right" id="Remote Host" order="3" visible="true" weight="0.32356077" />
+      <window_info active="true" anchor="right" id="Remote Host" order="3" visible="true" weight="0.23773988" />
       <window_info anchor="right" id="SciView" order="4" weight="0.32995737" />
       <window_info anchor="right" id="Database" order="5" weight="0.32995737" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <ignored-roots>
+      <path value="$PROJECT_DIR$/GAT_Net" />
+    </ignored-roots>
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -342,9 +409,10 @@
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/st_gcn$main__1_.coverage" NAME="main (1) Coverage Results" MODIFIED="1563720495590" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="/" />
     <SUITE FILE_PATH="coverage/st_gcn$main__2_.coverage" NAME="main (2) Coverage Results" MODIFIED="1563719758659" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="D:/Action_GCN/st-gcn" />
+    <SUITE FILE_PATH="coverage/st_gcn$lstm.coverage" NAME="lstm Coverage Results" MODIFIED="1566637497581" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="/" />
     <SUITE FILE_PATH="coverage/st_gcn$gat.coverage" NAME="gat Coverage Results" MODIFIED="1562596675199" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/net_attention/utils" />
     <SUITE FILE_PATH="coverage/st_gcn$st_gcn.coverage" NAME="st_gcn Coverage Results" MODIFIED="1562596740688" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="/" />
-    <SUITE FILE_PATH="coverage/st_gcn$main.coverage" NAME="main Coverage Results" MODIFIED="1563780433050" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/st_gcn$main.coverage" NAME="main Coverage Results" MODIFIED="1566875041990" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/st_gcn$st_gcn__3_.coverage" NAME="st_gcn (3) Coverage Results" MODIFIED="1563343535681" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/net_attention" />
     <SUITE FILE_PATH="coverage/st_gcn$st_gcn__2_.coverage" NAME="st_gcn (2) Coverage Results" MODIFIED="1562597545762" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="D:/Action_GCN/st-gcn/net" />
     <SUITE FILE_PATH="coverage/st_gcn$st_gcn__1_.coverage" NAME="st_gcn (1) Coverage Results" MODIFIED="1562597387580" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="/" />
@@ -377,13 +445,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="323">
           <caret line="105" selection-start-line="105" selection-end-line="105" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/.PyCharm2019.1/system/remote_sources/1611643867/-1735303561/torch/nn/modules/module.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="35">
-          <caret line="531" column="32" lean-forward="true" selection-start-line="531" selection-start-column="32" selection-end-line="531" selection-end-column="32" />
         </state>
       </provider>
     </entry>
@@ -485,10 +546,47 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/../2s-AGCN/venv/Scripts/easy_install-3.7-script.py">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$USER_HOME$/.PyCharm2019.1/system/remote_sources/1611643867/-1735303561/torch/nn/modules/module.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1216">
+          <caret line="71" column="46" lean-forward="true" selection-start-line="71" selection-start-column="46" selection-end-line="71" selection-end-column="46" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/net_lstm/st_gcn.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="380">
+          <caret line="20" column="10" lean-forward="true" selection-start-line="20" selection-start-column="10" selection-end-line="20" selection-end-column="10" />
+          <folding>
+            <element signature="e#0#12#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/net_lstm/utils/lstm.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="197">
+          <caret line="81" selection-start-line="81" selection-end-line="81" />
+          <folding>
+            <element signature="e#0#12#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/net_gat/utils/gat.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="197">
+          <caret line="70" selection-start-line="70" selection-end-line="70" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/main.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="474">
-          <caret line="46" column="71" selection-start-line="46" selection-start-column="71" selection-end-line="46" selection-end-column="71" />
+        <state relative-caret-position="342">
+          <caret line="27" column="48" lean-forward="true" selection-start-line="27" selection-start-column="48" selection-end-line="27" selection-end-column="48" />
           <folding>
             <element signature="e#47#62#0" expanded="true" />
           </folding>
