@@ -1,2 +1,2 @@
-# ST_GAT
-A Pytorch Realization of ST-GAT
+# ST-GCN
+Variations of ST-GCN in Pytorch
