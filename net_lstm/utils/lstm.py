@@ -1,10 +1,12 @@
 import torch
 import torch.nn as nn
+from torch.nn import Parameter
 import torch.nn.functional as F
+from torch.autograd import Variable
 
 class ST_LSTM(nn.Module):
-    def __init__(self, nodes, in_channel, out_channel,
-                forget_bias = 1.0, ln = True):
+    def __init__(self, nodes, in_channel, out_channel, out = None,
+                forget_bias = 1.0, ln = True, first = False):
         super(ST_LSTM, self).__init__()
         self.nodes = nodes
 
@@ -13,54 +15,83 @@ class ST_LSTM(nn.Module):
         self.forget_bias = forget_bias
         self.layer_norm = ln
 
-        self.conv_x = nn.Conv1d(in_channel, 7 * out_channel, 1)
-        self.conv_h = nn.Conv1d(out_channel, 4 * out_channel, 1)
+        if first == False:
+            out = in_channel
+        self.conv_xg = nn.Conv1d(out, out_channel, 1)
+        self.conv_xi = nn.Conv1d(out, out_channel, 1)
+        self.conv_xf = nn.Conv1d(out, out_channel, 1)
+        self.conv_xg_ = nn.Conv1d(out, out_channel, 1)
+        self.conv_xi_ = nn.Conv1d(out, out_channel, 1)
+        self.conv_xf_ = nn.Conv1d(out, out_channel, 1)
+        self.conv_xo = nn.Conv1d(out, out_channel, 1)
+
+        self.conv_hg = nn.Conv1d(out_channel, out_channel, 1)
+        self.conv_hi = nn.Conv1d(out_channel, out_channel, 1)
+        self.conv_hf = nn.Conv1d(out_channel, out_channel, 1)
+        self.conv_ho = nn.Conv1d(out_channel, out_channel, 1)
+
         self.conv_c = nn.Conv1d(out_channel, out_channel, 1)
-        self.conv_m_in = nn.Conv1d(in_channel, 4 * out_channel, 1)
-        self.conv_m_out = nn.Conv1d(out_channel, out_channel, 1)
+
+        self.conv_mg = nn.Conv1d(in_channel, out_channel, 1)
+        self.conv_mi = nn.Conv1d(in_channel, out_channel, 1)
+        self.conv_mf = nn.Conv1d(in_channel, out_channel, 1)
+        self.conv_mm = nn.Conv1d(in_channel, out_channel, 1)
+
+        self.conv_mo = nn.Conv1d(out_channel, out_channel, 1)
 
         self.W_1x1 = nn.Conv1d(2 * out_channel, out_channel, 1)
 
         if self.layer_norm:
-            self.ln_x = nn.LayerNorm([7 * out_channel, self.nodes])
-            self.ln_h = nn.LayerNorm([4 * out_channel, self.nodes])
+            self.ln_xg = nn.LayerNorm([out_channel, self.nodes])
+            self.ln_xi = nn.LayerNorm([out_channel, self.nodes])
+            self.ln_xf = nn.LayerNorm([out_channel, self.nodes])
+            self.ln_xg_ = nn.LayerNorm([out_channel, self.nodes])
+            self.ln_xi_ = nn.LayerNorm([out_channel, self.nodes])
+            self.ln_xf_ = nn.LayerNorm([out_channel, self.nodes])
+            self.ln_xo = nn.LayerNorm([out_channel, self.nodes])
+
+            self.ln_hg = nn.LayerNorm([out_channel, self.nodes])
+            self.ln_hi = nn.LayerNorm([out_channel, self.nodes])
+            self.ln_hf = nn.LayerNorm([out_channel, self.nodes])
+            self.ln_ho = nn.LayerNorm([out_channel, self.nodes])
+
             self.ln_c = nn.LayerNorm([out_channel, self.nodes])
-            self.ln_m_in = nn.LayerNorm([4 * out_channel, self.nodes])
-            self.ln_m_out = nn.LayerNorm([out_channel, self.nodes])
+
+            self.ln_mg = nn.LayerNorm([out_channel, self.nodes])
+            self.ln_mi = nn.LayerNorm([out_channel, self.nodes])
+            self.ln_mf = nn.LayerNorm([out_channel, self.nodes])
+            self.ln_mm = nn.LayerNorm([out_channel, self.nodes])
+
+            self.ln_mo = nn.LayerNorm([out_channel, self.nodes])
 
     def forward(self, x, h, c, m):
         '''
         x shape:(N, C, V)
         '''
 
-        batch = x.shape()[0]
-        if h is None:
-            h = torch.zeros(batch, self.out_channel, self.nodes)
-        if c is None:
-            c = torch.zeros(batch, self.out_channel, self.nodes)
-        if m is None:
-            m = torch.zeros(batch, self.out_channel, self.nodes)
-
-        xs, hs, ms = self.conv_x(x), self.conv_h(h), self.conv_m_in(m)
+        xg, xi, xf, xg_, xi_, xf_, xo = self.conv_xg(x), self.conv_xi(x), self.conv_xf(x), self.conv_xg_(x), self.conv_xi_(x), self.conv_xf_(x), self.conv_xo(x)
+        hg, hi, hf, ho = self.conv_hg(h.cuda()), self.conv_hi(h.cuda()), self.conv_hf(h.cuda()), self.conv_ho(h.cuda())
+        mg, mi, mf, mm = self.conv_mg(m.cuda()), self.conv_mi(m.cuda()), self.conv_mf(m.cuda()), self.conv_mm(m.cuda())
 
         if self.layer_norm:
-            xs, hs, ms = self.ln_x(xs), self.ln_h(hs), self.ln_m_in(ms)
+            xg, xi, xf, xg_, xi_, xf_, xo = self.ln_xg(xg), self.ln_xi(xi), self.ln_xf(xf), self.ln_xg_(
+                xg_), self.ln_xi_(xi_), self.ln_xf_(xf_), self.ln_xo(xo)
+            hg, hi, hf, ho = self.ln_hg(hg), self.ln_hi(hi), self.ln_hf(hf), self.ln_ho(ho)
+            mg, mi, mf, mm = self.ln_mg(mg), self.ln_mi(mi), self.ln_mf(mf), self.ln_mm(mm)
 
-        xg, xi, xf, xg_, xi_, xf_, xo = torch.chunk(xs, 7, dim = 1)
-        hg, hi, hf, ho = torch.chunk(hs, 4, dim = 1)
-        mg, mi, mf, mm = torch.chunk(ms, 4, dim = 1)
 
         g, i, f = torch.tanh(xg + hg), torch.sigmoid(xi + hi), torch.sigmoid(xf + hf + self.forget_bias)
-        c_ = f * c + i * g
+        c_ = f * c.cuda() + i * g
         g_, i_, f_ = torch.tanh(xg_ + mg), torch.sigmoid(xi_ + mi), torch.sigmoid(xf_ + mf + self.forget_bias)
         m_ = f_ * mm + i_ * g_
         co = self.conv_c(c_)
-        mo = self.conv_m_out(m_)
+        mo = self.conv_mo(m_)
         if self.layer_norm:
-            co, mo = self.ln_c(co), self.ln_m_out(mo)
+            co = self.ln_c(co)
+            mo = self.ln_mo(mo)
 
         o = torch.sigmoid(xo + ho + co + mo)
-        cm = torch.concat([co, mo], dim = 1)
+        cm = torch.cat([co, mo], dim = 1)
         temp = self.W_1x1(cm)
         h_ = o * torch.tanh(temp)
 
@@ -70,18 +101,17 @@ class RNN(nn.Module):
     def __init__(self, nodes, out_c, num_layers = 4, hidden_channel = [128, 64, 64, 64]):
         super(RNN, self).__init__()
 
-        self.hidden = []
-        self.cell = []
-        self.memory = None
         self.lstm = nn.ModuleList()
         self.num_layers = num_layers
         self.nodes = nodes
+        self.hidden_channel = hidden_channel
 
         assert num_layers == len(hidden_channel)
         for i in range(num_layers):
-            lstm.append(ST_LSTM(self.nodes, hidden_channel[i - 1], hidden_channel[i]))
-            cell.append(None)
-            hidden.append(None)
+            if i == 0:
+                self.lstm.append(ST_LSTM(self.nodes, hidden_channel[i - 1], hidden_channel[i], first=True, out=out_c))
+            else:
+                self.lstm.append(ST_LSTM(self.nodes, hidden_channel[i - 1], hidden_channel[i]))
 
         self.conv_back = nn.Sequential(
             nn.Conv2d(hidden_channel[-1], out_c, 1),
@@ -93,13 +123,24 @@ class RNN(nn.Module):
         x shape: (N, C, T, V)
         '''
 
-        batch, _, sequence = x.size()[:3]
-        result = torch.zeros(batch, self.hidden[-1], sequence, self.nodes)
-        for t in range(sequence):
+        N, _, T, V = x.size()
+        hidden, cell, memory, result = self.initHidden(N, T, V)
+        for t in range(T):
             for (l, lstm) in enumerate(self.lstm):
-                frame = x[:, :, t] if l == 0 else self.hidden[l - 1]
-                self.hidden[l], self.cell[l], self.memory = lstm(frame, self.hidden[l], self.cell[l], self.memory)
-            result[:, :, t] = self.hidden[-1]
+                frame = x[:, :, t] if l == 0 else hidden[l - 1]
+                hidden[l], cell[l], memory = lstm(frame, hidden[l], cell[l], memory)
+            result[:, :, t] = hidden[-1]
 
         output = self.conv_back(result)
         return output
+
+    def initHidden(self, N, T, V):
+        c, h = [], []
+        m = torch.zeros(N, self.hidden_channel[-1], V)
+        o = torch.zeros(N, self.hidden_channel[-1], T, V).cuda()
+        for i in range(self.num_layers):
+            c.append(torch.zeros(N, self.hidden_channel[i], V))
+            h.append(torch.zeros(N, self.hidden_channel[i], V))
+
+        return h, c, m, o
+
